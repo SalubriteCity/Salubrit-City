@@ -1,0 +1,584 @@
+
+\documentclass[11pt,a4paper]{report}
+
+% ==================================================
+% 1. PACKAGES
+% ==================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{placeins}
+
+% ==================================================
+% 2. CONFIGURATION DU DOCUMENT
+% ==================================================
+
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=2.2cm,
+    bottom=2.2cm
+}
+
+\setstretch{1.15}
+\setlength{\parindent}{0.5cm}
+\setlength{\parskip}{4pt}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{CELEBRITY CITY}
+\fancyhead[R]{Cahier des charges}
+\fancyfoot[C]{\thepage}
+
+% ==================================================
+% 3. COMMANDE POUR LES DIAGRAMMES
+% ==================================================
+
+% Utilisation :
+% \diagramme{fichier.png}{Nom du diagramme}{Description}
+
+\newcommand{\diagramme}[3]{
+    \begin{figure}[H]
+        \centering
+        \IfFileExists{#1}{
+            \includegraphics[
+                width=0.90\textwidth,
+                height=0.36\textheight,
+                keepaspectratio
+            ]{#1}
+        }{
+            \fbox{
+                \parbox[c][4cm][c]{0.85\textwidth}{
+                    \centering
+                    Diagramme à insérer : #2\\
+                    Fichier attendu : #1
+                }
+            }
+        }
+        \caption{#2}
+        \label{fig:#2}
+    \end{figure}
+    \textit{Description : #3}
+}
+
+% ==================================================
+% 4. PAGE DE GARDE
+% ==================================================
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+
+        \textbf{RÉPUBLIQUE DU CAMEROUN}\\
+        Paix - Travail - Patrie
+
+        \vspace{1cm}
+
+        \textbf{[NOM DE L'ÉTABLISSEMENT]}\\
+        \textbf{[DÉPARTEMENT / FILIÈRE]}
+
+        \vspace{1.5cm}
+
+        % Logo de l'établissement
+        % \includegraphics[width=3cm]{images/logo.png}
+
+        \vspace{1cm}
+
+        {\Huge\bfseries CAHIER DES CHARGES}
+
+        \vspace{1cm}
+
+        {\LARGE\bfseries CELEBRITY CITY}
+
+        \vspace{0.5cm}
+
+        {\large
+        Système de signalement citoyen
+        et de gestion de la collecte des déchets
+        }
+
+        \vspace{1.5cm}
+
+        \textbf{Présenté par :}
+
+        \vspace{0.3cm}
+
+        [Noms des membres de l'équipe]
+
+        \vfill
+
+        \textbf{Encadrant :} [Nom de l'enseignant]
+
+        \vspace{0.5cm}
+
+        Année académique : [2026--2027]
+
+    \end{center}
+\end{titlepage}
+
+% ==================================================
+% 5. PAGES PRÉLIMINAIRES
+% ==================================================
+
+\pagenumbering{roman}
+
+\chapter*{Avant-propos}
+\addcontentsline{toc}{chapter}{Avant-propos}
+
+% Présenter brièvement le cadre académique du projet.
+
+\chapter*{Résumé}
+\addcontentsline{toc}{chapter}{Résumé}
+
+% Résumer le problème, la solution et les objectifs du projet.
+
+\chapter*{Liste des sigles et abréviations}
+\addcontentsline{toc}{chapter}{Liste des sigles}
+
+% API, GPS, UML, SGBD, etc.
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\clearpage
+\pagenumbering{arabic}
+
+% ==================================================
+% CHAPITRE 1 : PRÉSENTATION GÉNÉRALE
+% ==================================================
+
+\chapter{Présentation générale du projet}
+
+\section{Contexte du projet}
+
+\section{Justification du projet}
+
+\section{Problématique}
+
+\section{Présentation de Celebrity City}
+
+\section{Objectif général}
+
+\section{Objectifs spécifiques}
+
+\section{Résultats attendus}
+
+% ==================================================
+% CHAPITRE 2 : ÉTUDE DE L'EXISTANT
+% ==================================================
+
+\chapter{Étude de l'existant}
+
+\section{Présentation de la situation actuelle}
+
+\section{Analyse des méthodes de signalement existantes}
+
+\section{Analyse des méthodes de collecte des déchets}
+
+\section{Difficultés et insuffisances constatées}
+
+\section{Solution proposée}
+
+% ==================================================
+% CHAPITRE 3 : PÉRIMÈTRE DU PROJET
+% ==================================================
+
+\chapter{Délimitation et périmètre du projet}
+
+\section{Périmètre fonctionnel}
+
+\section{Fonctionnalités retenues}
+
+\section{Fonctionnalités exclues}
+
+\section{Périmètre géographique}
+
+\section{Limites du projet}
+
+% ==================================================
+% CHAPITRE 4 : ACTEURS ET BESOINS
+% ==================================================
+
+\chapter{Identification des acteurs et analyse des besoins}
+
+\section{Identification des acteurs}
+
+\subsection{Citoyen}
+
+\subsection{Agent municipal}
+
+\subsection{Responsable municipal}
+
+\subsection{Responsable de collecte}
+
+\subsection{Administrateur}
+
+\section{Besoins fonctionnels par acteur}
+
+\section{Besoins et attentes des utilisateurs}
+
+% DIAGRAMME :
+% Diagramme de contexte / acteurs du système
+
+\diagramme{diagrams/01-contexte.png}
+{Diagramme de contexte}
+{Représentation des acteurs externes et de leurs interactions avec Celebrity City.}
+
+% ==================================================
+% CHAPITRE 5 : SPÉCIFICATIONS FONCTIONNELLES
+% ==================================================
+
+\chapter{Spécifications fonctionnelles}
+
+\section{Module d'authentification et de gestion des comptes}
+
+\subsection{Inscription et connexion}
+
+\subsection{Gestion des rôles et permissions}
+
+\section{Module de signalement citoyen}
+
+\subsection{Création d'un signalement}
+
+\subsection{Ajout de photographies}
+
+\subsection{Géolocalisation automatique}
+
+\subsection{Catégorisation des problèmes}
+
+\subsection{Consultation et suivi des signalements}
+
+\section{Module de gestion des signalements}
+
+\subsection{Consultation des signalements}
+
+\subsection{Vérification et validation}
+
+\subsection{Affectation aux équipes municipales}
+
+\subsection{Gestion des statuts}
+
+\subsection{Notifications}
+
+\section{Module de gestion de la collecte}
+
+\subsection{Gestion des zones de collecte}
+
+\subsection{Gestion des camions et des agents}
+
+\subsection{Planification des collectes}
+
+\subsection{Suivi des opérations}
+
+\section{Module cartographique}
+
+\subsection{Affichage des signalements}
+
+\subsection{Localisation des poubelles publiques}
+
+\subsection{Visualisation des camions}
+
+\subsection{Cartographie des zones à problèmes}
+
+\section{Tableau de bord municipal}
+
+\subsection{Statistiques des signalements}
+
+\subsection{Suivi des interventions}
+
+\subsection{Indicateurs de collecte}
+
+% ==================================================
+% CHAPITRE 6 : SPÉCIFICATIONS NON FONCTIONNELLES
+% ==================================================
+
+\chapter{Spécifications non fonctionnelles}
+
+\section{Sécurité}
+
+\section{Performance}
+
+\section{Disponibilité}
+
+\section{Ergonomie et accessibilité}
+
+\section{Compatibilité multiplateforme}
+
+\section{Maintenabilité et évolutivité}
+
+\section{Gestion des connexions instables}
+
+% ==================================================
+% CHAPITRE 7 : MODÉLISATION UML
+% ==================================================
+
+\chapter{Modélisation et conception UML}
+
+\section{Présentation de UML}
+
+\section{Diagramme de cas d'utilisation général}
+
+\diagramme{diagrams/02-use-case-global.png}
+{Diagramme de cas d'utilisation général}
+{Présentation des acteurs et de l'ensemble des fonctionnalités accessibles dans le système.}
+
+\section{Diagrammes de cas d'utilisation détaillés}
+
+\subsection{Cas d'utilisation du citoyen}
+
+\diagramme{diagrams/03-use-case-citoyen.png}
+{Diagramme de cas d'utilisation du citoyen}
+{Inscription, connexion, création et suivi des signalements.}
+
+\subsection{Cas d'utilisation du personnel municipal}
+
+\diagramme{diagrams/04-use-case-municipalite.png}
+{Diagramme de cas d'utilisation municipal}
+{Vérification, affectation et traitement des signalements.}
+
+\subsection{Cas d'utilisation de la collecte}
+
+\diagramme{diagrams/05-use-case-collecte.png}
+{Diagramme de cas d'utilisation de la collecte}
+{Planification et suivi des opérations de collecte.}
+
+\section{Diagrammes d'activités}
+
+\subsection{Processus de création d'un signalement}
+
+\diagramme{diagrams/06-activite-signalement.png}
+{Diagramme d'activités du signalement}
+{Étapes allant de la création du signalement à son enregistrement.}
+
+\subsection{Processus de traitement d'un signalement}
+
+\diagramme{diagrams/07-activite-traitement.png}
+{Diagramme d'activités du traitement}
+{Circuit de vérification, d'affectation et de résolution d'un signalement.}
+
+\section{Diagrammes de séquence}
+
+\subsection{Séquence de création d'un signalement}
+
+\diagramme{diagrams/08-sequence-signalement.png}
+{Diagramme de séquence du signalement}
+{Échanges entre le citoyen, l'application mobile, l'API et la base de données.}
+
+\subsection{Séquence d'affectation d'une intervention}
+
+\diagramme{diagrams/09-sequence-affectation.png}
+{Diagramme de séquence de l'affectation}
+{Échanges entre le responsable municipal, le backend et l'agent affecté.}
+
+\section{Diagramme de classes}
+
+\diagramme{diagrams/10-classes.png}
+{Diagramme de classes}
+{Présentation des classes métier, attributs, méthodes et relations du système.}
+
+\section{Diagramme de composants}
+
+\diagramme{diagrams/11-composants.png}
+{Diagramme de composants}
+{Organisation des composants Laravel, React, Flutter et des services externes.}
+
+\section{Diagramme de déploiement}
+
+\diagramme{diagrams/12-deploiement.png}
+{Diagramme de déploiement}
+{Représentation de l'environnement d'exécution et des communications entre les applications et les serveurs.}
+
+% ==================================================
+% CHAPITRE 8 : BASE DE DONNÉES
+% ==================================================
+
+\chapter{Conception de la base de données}
+
+\section{Choix du système de gestion de base de données}
+
+\section{Identification des entités}
+
+\section{Description des entités et attributs}
+
+\section{Relations entre les entités}
+
+\section{Règles de gestion}
+
+\section{Modèle conceptuel de données (MCD)}
+
+\diagramme{diagrams/13-mcd.png}
+{Modèle conceptuel de données}
+{Présentation des entités, associations, cardinalités et règles de gestion.}
+
+\section{Modèle logique de données (MLD)}
+
+% ==================================================
+% CHAPITRE 9 : ARCHITECTURE TECHNIQUE
+% ==================================================
+
+\chapter{Architecture technique du système}
+
+\section{Architecture générale}
+
+\section{Backend : Laravel}
+
+\section{Frontend web : React}
+
+\section{Application mobile : Flutter}
+
+\section{Communication par API REST}
+
+\section{Communication temps réel par WebSocket}
+
+\section{Services cartographiques et géolocalisation}
+
+\section{Choix des technologies et justification}
+
+% ==================================================
+% CHAPITRE 10 : INTERFACES UTILISATEUR
+% ==================================================
+
+\chapter{Conception des interfaces utilisateur}
+
+\section{Interface d'authentification}
+
+\section{Interface citoyenne}
+
+\section{Interface de création d'un signalement}
+
+\section{Interface de suivi des signalements}
+
+\section{Interface d'administration municipale}
+
+\section{Interface de gestion de la collecte}
+
+\section{Tableau de bord et cartographie}
+
+% Emplacements des maquettes :
+% images/maquette-connexion.png
+% images/maquette-citoyen.png
+% images/maquette-signalement.png
+% images/maquette-carte.png
+% images/maquette-dashboard.png
+
+% ==================================================
+% CHAPITRE 11 : ORGANISATION DU PROJET
+% ==================================================
+
+\chapter{Organisation et planification du projet}
+
+\section{Méthodologie de développement}
+
+\section{Découpage en phases}
+
+\section{Répartition des responsabilités}
+
+\section{Outils de collaboration et de gestion}
+
+\section{Calendrier prévisionnel}
+
+\section{Gestion des versions avec Git et GitHub}
+
+% ==================================================
+% CHAPITRE 12 : TESTS ET VALIDATION
+% ==================================================
+
+\chapter{Stratégie de tests et validation}
+
+\section{Tests unitaires}
+
+\section{Tests d'intégration}
+
+\section{Tests fonctionnels}
+
+\section{Tests de sécurité}
+
+\section{Tests de performance}
+
+\section{Critères d'acceptation}
+
+% ==================================================
+% CHAPITRE 13 : CONTRAINTES ET RISQUES
+% ==================================================
+
+\chapter{Contraintes et gestion des risques}
+
+\section{Contraintes techniques}
+
+\section{Contraintes matérielles et financières}
+
+\section{Risques liés à la géolocalisation}
+
+\section{Risques liés à la connectivité}
+
+\section{Mesures de prévention}
+
+% ==================================================
+% CHAPITRE 14 : CONCLUSION
+% ==================================================
+
+\chapter{Conclusion générale}
+
+% Résumer le projet, sa pertinence et les résultats attendus.
+
+% ==================================================
+% RÉFÉRENCES ET ANNEXES
+% ==================================================
+
+\begin{thebibliography}{9}
+
+\bibitem{uml}
+Référence à la documentation UML.
+
+\bibitem{laravel}
+Documentation officielle Laravel,
+\url{https://laravel.com/docs}
+
+\bibitem{react}
+Documentation officielle React,
+\url{https://react.dev}
+
+\bibitem{flutter}
+Documentation officielle Flutter,
+\url{https://docs.flutter.dev}
+
+\bibitem{osm}
+Documentation OpenStreetMap,
+\url{https://www.openstreetmap.org}
+
+\end{thebibliography}
+
+\appendix
+
+\chapter{Glossaire}
+
+\chapter{Règles de gestion complémentaires}
+
+\chapter{Documents complémentaires}
+
+\end{document}
