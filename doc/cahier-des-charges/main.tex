@@ -1,584 +1,1285 @@
+\documentclass[11pt,a4paper,oneside]{report}
 
-\documentclass[11pt,a4paper]{report}
-
-% ==================================================
-% 1. PACKAGES
-% ==================================================
-
-\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
-\usepackage{lmodern}
 \usepackage{geometry}
-\usepackage{graphicx}
-\usepackage{float}
 \usepackage{array}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{tabularx}
-\usepackage{enumitem}
-\usepackage{hyperref}
-\usepackage{xcolor}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\usepackage{setspace}
-\usepackage{caption}
-\usepackage{placeins}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{
+	positioning,
+	arrows.meta,
+	shapes.geometric,
+	calc,
+	fit
+}
 
-% ==================================================
-% 2. CONFIGURATION DU DOCUMENT
-% ==================================================
 
 \geometry{
-    left=2.5cm,
-    right=2.5cm,
-    top=2.2cm,
-    bottom=2.2cm
+	a4paper,
+	top=1.8cm,
+	bottom=1.8cm,
+	left=2cm,
+	right=2cm
 }
-
-\setstretch{1.15}
-\setlength{\parindent}{0.5cm}
-\setlength{\parskip}{4pt}
-
-\hypersetup{
-    colorlinks=true,
-    linkcolor=black,
-    urlcolor=blue,
-    citecolor=black
-}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{CELEBRITY CITY}
-\fancyhead[R]{Cahier des charges}
-\fancyfoot[C]{\thepage}
-
-% ==================================================
-% 3. COMMANDE POUR LES DIAGRAMMES
-% ==================================================
-
-% Utilisation :
-% \diagramme{fichier.png}{Nom du diagramme}{Description}
-
-\newcommand{\diagramme}[3]{
-    \begin{figure}[H]
-        \centering
-        \IfFileExists{#1}{
-            \includegraphics[
-                width=0.90\textwidth,
-                height=0.36\textheight,
-                keepaspectratio
-            ]{#1}
-        }{
-            \fbox{
-                \parbox[c][4cm][c]{0.85\textwidth}{
-                    \centering
-                    Diagramme à insérer : #2\\
-                    Fichier attendu : #1
-                }
-            }
-        }
-        \caption{#2}
-        \label{fig:#2}
-    \end{figure}
-    \textit{Description : #3}
-}
-
-% ==================================================
-% 4. PAGE DE GARDE
-% ==================================================
-
 \begin{document}
-
-\begin{titlepage}
-    \begin{center}
-
-        \textbf{RÉPUBLIQUE DU CAMEROUN}\\
-        Paix - Travail - Patrie
-
-        \vspace{1cm}
-
-        \textbf{[NOM DE L'ÉTABLISSEMENT]}\\
-        \textbf{[DÉPARTEMENT / FILIÈRE]}
-
-        \vspace{1.5cm}
-
-        % Logo de l'établissement
-        % \includegraphics[width=3cm]{images/logo.png}
-
-        \vspace{1cm}
-
-        {\Huge\bfseries CAHIER DES CHARGES}
-
-        \vspace{1cm}
-
-        {\LARGE\bfseries CELEBRITY CITY}
-
-        \vspace{0.5cm}
-
-        {\large
-        Système de signalement citoyen
-        et de gestion de la collecte des déchets
-        }
-
-        \vspace{1.5cm}
-
-        \textbf{Présenté par :}
-
-        \vspace{0.3cm}
-
-        [Noms des membres de l'équipe]
-
-        \vfill
-
-        \textbf{Encadrant :} [Nom de l'enseignant]
-
-        \vspace{0.5cm}
-
-        Année académique : [2026--2027]
-
-    \end{center}
-\end{titlepage}
-
-% ==================================================
-% 5. PAGES PRÉLIMINAIRES
-% ==================================================
-
-\pagenumbering{roman}
-
-\chapter*{Avant-propos}
-\addcontentsline{toc}{chapter}{Avant-propos}
-
-% Présenter brièvement le cadre académique du projet.
-
-\chapter*{Résumé}
-\addcontentsline{toc}{chapter}{Résumé}
-
-% Résumer le problème, la solution et les objectifs du projet.
-
-\chapter*{Liste des sigles et abréviations}
-\addcontentsline{toc}{chapter}{Liste des sigles}
-
-% API, GPS, UML, SGBD, etc.
-
-\tableofcontents
-\listoffigures
-\listoftables
-
-\clearpage
-\pagenumbering{arabic}
-
-% ==================================================
-% CHAPITRE 1 : PRÉSENTATION GÉNÉRALE
-% ==================================================
-
-\chapter{Présentation générale du projet}
-
-\section{Contexte du projet}
-
-\section{Justification du projet}
-
-\section{Problématique}
-
-\section{Présentation de Celebrity City}
-
-\section{Objectif général}
-
-\section{Objectifs spécifiques}
-
-\section{Résultats attendus}
-
-% ==================================================
-% CHAPITRE 2 : ÉTUDE DE L'EXISTANT
-% ==================================================
-
-\chapter{Étude de l'existant}
-
-\section{Présentation de la situation actuelle}
-
-\section{Analyse des méthodes de signalement existantes}
-
-\section{Analyse des méthodes de collecte des déchets}
-
-\section{Difficultés et insuffisances constatées}
-
-\section{Solution proposée}
-
-% ==================================================
-% CHAPITRE 3 : PÉRIMÈTRE DU PROJET
-% ==================================================
-
-\chapter{Délimitation et périmètre du projet}
-
-\section{Périmètre fonctionnel}
-
-\section{Fonctionnalités retenues}
-
-\section{Fonctionnalités exclues}
-
-\section{Périmètre géographique}
-
-\section{Limites du projet}
-
-% ==================================================
-% CHAPITRE 4 : ACTEURS ET BESOINS
-% ==================================================
-
-\chapter{Identification des acteurs et analyse des besoins}
-
-\section{Identification des acteurs}
-
-\subsection{Citoyen}
-
-\subsection{Agent municipal}
-
-\subsection{Responsable municipal}
-
-\subsection{Responsable de collecte}
-
-\subsection{Administrateur}
-
-\section{Besoins fonctionnels par acteur}
-
-\section{Besoins et attentes des utilisateurs}
-
-% DIAGRAMME :
-% Diagramme de contexte / acteurs du système
-
-\diagramme{diagrams/01-contexte.png}
-{Diagramme de contexte}
-{Représentation des acteurs externes et de leurs interactions avec Celebrity City.}
-
-% ==================================================
-% CHAPITRE 5 : SPÉCIFICATIONS FONCTIONNELLES
-% ==================================================
-
-\chapter{Spécifications fonctionnelles}
-
-\section{Module d'authentification et de gestion des comptes}
-
-\subsection{Inscription et connexion}
-
-\subsection{Gestion des rôles et permissions}
-
-\section{Module de signalement citoyen}
-
-\subsection{Création d'un signalement}
-
-\subsection{Ajout de photographies}
-
-\subsection{Géolocalisation automatique}
-
-\subsection{Catégorisation des problèmes}
-
-\subsection{Consultation et suivi des signalements}
-
-\section{Module de gestion des signalements}
-
-\subsection{Consultation des signalements}
-
-\subsection{Vérification et validation}
-
-\subsection{Affectation aux équipes municipales}
-
-\subsection{Gestion des statuts}
-
-\subsection{Notifications}
-
-\section{Module de gestion de la collecte}
-
-\subsection{Gestion des zones de collecte}
-
-\subsection{Gestion des camions et des agents}
-
-\subsection{Planification des collectes}
-
-\subsection{Suivi des opérations}
-
-\section{Module cartographique}
-
-\subsection{Affichage des signalements}
-
-\subsection{Localisation des poubelles publiques}
-
-\subsection{Visualisation des camions}
-
-\subsection{Cartographie des zones à problèmes}
-
-\section{Tableau de bord municipal}
-
-\subsection{Statistiques des signalements}
-
-\subsection{Suivi des interventions}
-
-\subsection{Indicateurs de collecte}
-
-% ==================================================
-% CHAPITRE 6 : SPÉCIFICATIONS NON FONCTIONNELLES
-% ==================================================
-
-\chapter{Spécifications non fonctionnelles}
-
-\section{Sécurité}
-
-\section{Performance}
-
-\section{Disponibilité}
-
-\section{Ergonomie et accessibilité}
-
-\section{Compatibilité multiplateforme}
-
-\section{Maintenabilité et évolutivité}
-
-\section{Gestion des connexions instables}
-
-% ==================================================
-% CHAPITRE 7 : MODÉLISATION UML
-% ==================================================
-
-\chapter{Modélisation et conception UML}
-
-\section{Présentation de UML}
-
-\section{Diagramme de cas d'utilisation général}
-
-\diagramme{diagrams/02-use-case-global.png}
-{Diagramme de cas d'utilisation général}
-{Présentation des acteurs et de l'ensemble des fonctionnalités accessibles dans le système.}
-
-\section{Diagrammes de cas d'utilisation détaillés}
-
-\subsection{Cas d'utilisation du citoyen}
-
-\diagramme{diagrams/03-use-case-citoyen.png}
-{Diagramme de cas d'utilisation du citoyen}
-{Inscription, connexion, création et suivi des signalements.}
-
-\subsection{Cas d'utilisation du personnel municipal}
-
-\diagramme{diagrams/04-use-case-municipalite.png}
-{Diagramme de cas d'utilisation municipal}
-{Vérification, affectation et traitement des signalements.}
-
-\subsection{Cas d'utilisation de la collecte}
-
-\diagramme{diagrams/05-use-case-collecte.png}
-{Diagramme de cas d'utilisation de la collecte}
-{Planification et suivi des opérations de collecte.}
-
-\section{Diagrammes d'activités}
-
-\subsection{Processus de création d'un signalement}
-
-\diagramme{diagrams/06-activite-signalement.png}
-{Diagramme d'activités du signalement}
-{Étapes allant de la création du signalement à son enregistrement.}
-
-\subsection{Processus de traitement d'un signalement}
-
-\diagramme{diagrams/07-activite-traitement.png}
-{Diagramme d'activités du traitement}
-{Circuit de vérification, d'affectation et de résolution d'un signalement.}
-
-\section{Diagrammes de séquence}
-
-\subsection{Séquence de création d'un signalement}
-
-\diagramme{diagrams/08-sequence-signalement.png}
-{Diagramme de séquence du signalement}
-{Échanges entre le citoyen, l'application mobile, l'API et la base de données.}
-
-\subsection{Séquence d'affectation d'une intervention}
-
-\diagramme{diagrams/09-sequence-affectation.png}
-{Diagramme de séquence de l'affectation}
-{Échanges entre le responsable municipal, le backend et l'agent affecté.}
-
-\section{Diagramme de classes}
-
-\diagramme{diagrams/10-classes.png}
-{Diagramme de classes}
-{Présentation des classes métier, attributs, méthodes et relations du système.}
-
-\section{Diagramme de composants}
-
-\diagramme{diagrams/11-composants.png}
-{Diagramme de composants}
-{Organisation des composants Laravel, React, Flutter et des services externes.}
-
-\section{Diagramme de déploiement}
-
-\diagramme{diagrams/12-deploiement.png}
-{Diagramme de déploiement}
-{Représentation de l'environnement d'exécution et des communications entre les applications et les serveurs.}
-
-% ==================================================
-% CHAPITRE 8 : BASE DE DONNÉES
-% ==================================================
-
-\chapter{Conception de la base de données}
-
-\section{Choix du système de gestion de base de données}
-
-\section{Identification des entités}
-
-\section{Description des entités et attributs}
-
-\section{Relations entre les entités}
-
-\section{Règles de gestion}
-
-\section{Modèle conceptuel de données (MCD)}
-
-\diagramme{diagrams/13-mcd.png}
-{Modèle conceptuel de données}
-{Présentation des entités, associations, cardinalités et règles de gestion.}
-
-\section{Modèle logique de données (MLD)}
-
-% ==================================================
-% CHAPITRE 9 : ARCHITECTURE TECHNIQUE
-% ==================================================
-
-\chapter{Architecture technique du système}
-
-\section{Architecture générale}
-
-\section{Backend : Laravel}
-
-\section{Frontend web : React}
-
-\section{Application mobile : Flutter}
-
-\section{Communication par API REST}
-
-\section{Communication temps réel par WebSocket}
-
-\section{Services cartographiques et géolocalisation}
-
-\section{Choix des technologies et justification}
-
-% ==================================================
-% CHAPITRE 10 : INTERFACES UTILISATEUR
-% ==================================================
-
-\chapter{Conception des interfaces utilisateur}
-
-\section{Interface d'authentification}
-
-\section{Interface citoyenne}
-
-\section{Interface de création d'un signalement}
-
-\section{Interface de suivi des signalements}
-
-\section{Interface d'administration municipale}
-
-\section{Interface de gestion de la collecte}
-
-\section{Tableau de bord et cartographie}
-
-% Emplacements des maquettes :
-% images/maquette-connexion.png
-% images/maquette-citoyen.png
-% images/maquette-signalement.png
-% images/maquette-carte.png
-% images/maquette-dashboard.png
-
-% ==================================================
-% CHAPITRE 11 : ORGANISATION DU PROJET
-% ==================================================
-
-\chapter{Organisation et planification du projet}
-
-\section{Méthodologie de développement}
-
-\section{Découpage en phases}
-
-\section{Répartition des responsabilités}
-
-\section{Outils de collaboration et de gestion}
-
-\section{Calendrier prévisionnel}
-
-\section{Gestion des versions avec Git et GitHub}
-
-% ==================================================
-% CHAPITRE 12 : TESTS ET VALIDATION
-% ==================================================
-
-\chapter{Stratégie de tests et validation}
-
-\section{Tests unitaires}
-
-\section{Tests d'intégration}
-
-\section{Tests fonctionnels}
-
-\section{Tests de sécurité}
-
-\section{Tests de performance}
-
-\section{Critères d'acceptation}
-
-% ==================================================
-% CHAPITRE 13 : CONTRAINTES ET RISQUES
-% ==================================================
-
-\chapter{Contraintes et gestion des risques}
-
-\section{Contraintes techniques}
-
-\section{Contraintes matérielles et financières}
-
-\section{Risques liés à la géolocalisation}
-
-\section{Risques liés à la connectivité}
-
-\section{Mesures de prévention}
-
-% ==================================================
-% CHAPITRE 14 : CONCLUSION
-% ==================================================
-
-\chapter{Conclusion générale}
-
-% Résumer le projet, sa pertinence et les résultats attendus.
-
-% ==================================================
-% RÉFÉRENCES ET ANNEXES
-% ==================================================
-
-\begin{thebibliography}{9}
-
-\bibitem{uml}
-Référence à la documentation UML.
-
-\bibitem{laravel}
-Documentation officielle Laravel,
-\url{https://laravel.com/docs}
-
-\bibitem{react}
-Documentation officielle React,
-\url{https://react.dev}
-
-\bibitem{flutter}
-Documentation officielle Flutter,
-\url{https://docs.flutter.dev}
-
-\bibitem{osm}
-Documentation OpenStreetMap,
-\url{https://www.openstreetmap.org}
-
-\end{thebibliography}
-
-\appendix
-
-\chapter{Glossaire}
-
-\chapter{Règles de gestion complémentaires}
-
-\chapter{Documents complémentaires}
-
-\end{document}
+	
+	% ==================================================
+	% PARTIE 1 : PRESENTATION GENERALE
+	% ==================================================
+	
+	\section{Présentation générale}
+	
+	\subsection{Présentation du projet}
+	
+	SalubritéCity est une plateforme numérique de signalement
+	citoyen et de gestion des problèmes liés à la salubrité
+	et aux infrastructures urbaines.
+	
+	Le projet vise à faciliter la communication entre les
+	citoyens et les services communaux grâce à un système
+	centralisé de signalement, de suivi et de traitement
+	des incidents constatés dans les quartiers.
+	
+	La plateforme permet aux citoyens de signaler des
+	problèmes tels que les dépôts sauvages d'ordures,
+	les caniveaux bouchés, les nids-de-poule et les
+	lampadaires défectueux. Chaque signalement est
+	accompagné d'une photographie, d'une catégorie et
+	d'une position géographique automatiquement enregistrée.
+	
+	Les services techniques communaux disposent d'une
+	interface de gestion leur permettant de consulter les
+	signalements, de les affecter aux équipes compétentes
+	et de suivre leur résolution. La plateforme intègre
+	également un système de publication des calendriers
+	de collecte des déchets par quartier et de suivi des
+	camions de collecte.
+	
+	Enfin, les responsables communaux disposent d'un
+	tableau de bord cartographique leur permettant de
+	visualiser la répartition des problèmes et d'identifier
+	les zones nécessitant une intervention prioritaire.
+	
+	\subsection{Vision du projet}
+	
+	La vision de SalubritéCity est de mettre en place un
+	système collaboratif de gestion urbaine qui rapproche
+	les citoyens des administrations communales.
+	
+	La plateforme ambitionne de rendre les problèmes
+	urbains plus visibles, d'améliorer la coordination des
+	interventions et de faciliter le suivi des opérations
+	de collecte et d'assainissement.
+	
+	\subsection{Principe général de fonctionnement}
+	
+	Le fonctionnement général repose sur quatre étapes :
+	
+	\begin{enumerate}
+		\item \textbf{Signalement citoyen :}
+		photographie du problème, sélection de sa catégorie
+		et enregistrement de sa position GPS.
+		
+		\item \textbf{Centralisation et cartographie :}
+		affichage des signalements sur une carte et
+		confirmation par les autres citoyens.
+		
+		\item \textbf{Traitement communal :}
+		affectation des signalements aux équipes
+		compétentes et suivi des interventions.
+		
+		\item \textbf{Résolution et notification :}
+		mise à jour du statut du signalement et
+		information du citoyen sur son évolution.
+	\end{enumerate}
+	
+	\subsection{Organisation technique générale}
+	
+	La solution repose sur trois composants principaux :
+	
+	\begin{itemize}
+		\item \textbf{Application mobile Flutter :}
+		destinée aux citoyens et aux agents de terrain.
+		Elle exploite notamment la caméra, la
+		géolocalisation et les notifications push.
+		
+		\item \textbf{Application web React :}
+		destinée aux profils de gestion et
+		d'administration communale. Elle fournit les
+		interfaces de supervision, de gestion et de
+		visualisation cartographique.
+		
+		\item \textbf{API Laravel :}
+		centralise la logique métier, la gestion des
+		données, les échanges entre applications,
+		les notifications et les traitements côté serveur.
+	\end{itemize}
+	
+	\subsection{Répartition des responsabilités techniques}
+	\begin{table}[h!]
+		\centering
+		\small
+		\renewcommand{\arraystretch}{1.15}
+		\begin{tabular}{|p{3.5cm}|p{10.5cm}|}
+			\hline
+			\textbf{Composant} & \textbf{Responsabilité principale} \\ \hline
+			Flutter & Fonctionnalités mobiles et interactions terrain. \\ \hline
+			React & Gestion administrative et supervision. \\ \hline
+			Laravel & API, logique métier et persistance des données. \\ \hline
+		\end{tabular}
+	\end{table}
+	L'API Laravel constitue le point central de communication
+	entre les applications et la base de données.
+	
+	
+	% ==================================================
+	% PARTIE 2 : CONTEXTE ET PROBLEMATIQUE
+	% ==================================================
+	
+	\section{Contexte et problématique}
+	
+	\subsection{Contexte général}
+	
+	La gestion de la salubrité et des infrastructures
+	urbaines constitue un enjeu important pour les
+	collectivités territoriales. Dans plusieurs villes,
+	notamment à Amabam, les dépôts sauvages d'ordures,
+	l'obstruction des caniveaux, la dégradation des routes
+	et les pannes d'éclairage public affectent le cadre de
+	vie des populations.
+	
+	La résolution de ces problèmes nécessite une
+	collaboration efficace entre les citoyens et les
+	services communaux. Pourtant, le manque de moyens
+	numériques adaptés limite souvent la transmission
+	des informations, la localisation précise des incidents
+	et le suivi des interventions.
+	
+	Dans ce contexte, les technologies numériques,
+	notamment les applications mobiles, les systèmes de
+	géolocalisation et les plateformes cartographiques,
+	offrent des possibilités d'amélioration de la gestion
+	urbaine.
+	
+	\subsection{Problématique}
+	
+	Les citoyens rencontrent des difficultés pour signaler
+	efficacement les problèmes observés dans leurs
+	quartiers. Ils ne disposent pas toujours d'un canal
+	centralisé leur permettant de transmettre des
+	informations précises aux services compétents et de
+	suivre le traitement de leurs signalements.
+	
+	De leur côté, les administrations communales
+	éprouvent des difficultés à centraliser les plaintes,
+	à identifier les zones les plus affectées, à organiser
+	les interventions et à informer les populations de
+	l'évolution des opérations.
+	
+	L'absence d'une vue cartographique globale et d'un
+	système structuré de suivi réduit également la capacité
+	des responsables communaux à prioriser les
+	interventions selon leur localisation et leur importance.
+	
+	Par ailleurs, le manque de visibilité sur les calendriers
+	de collecte des déchets et sur les déplacements des
+	camions complique l'organisation et le suivi des
+	opérations de collecte.
+	
+	La question principale à laquelle ce projet cherche à
+	répondre est donc la suivante :
+	
+	\begin{quote}
+		\textit{Comment concevoir et développer une plateforme
+			numérique permettant aux citoyens de signaler les
+			problèmes urbains et aux services communaux de
+			centraliser, localiser, prioriser et suivre efficacement
+			leur traitement ainsi que les opérations de collecte
+			des déchets ?}
+	\end{quote}
+	
+	\subsection{Solution proposée}
+	
+	Pour répondre à cette problématique, le projet
+	SalubritéCity propose une plateforme numérique
+	composée d'une application mobile, d'une application
+	web et d'une API centralisée.
+	
+	La solution permettra de :
+	
+	\begin{itemize}
+		\item Faciliter le signalement des problèmes urbains
+		à travers des photographies et la géolocalisation.
+		
+		\item Centraliser les signalements et les représenter
+		sur une carte interactive.
+		
+		\item Permettre aux citoyens de confirmer les
+		problèmes déjà signalés.
+		
+		\item Organiser l'affectation des interventions
+		aux équipes communales.
+		
+		\item Assurer le suivi des signalements et informer
+		les citoyens de leur évolution.
+		
+		\item Publier les calendriers de collecte et suivre
+		les camions.
+		
+		\item Fournir aux responsables communaux des
+		outils de visualisation et d'analyse cartographique.
+	\end{itemize}
+	
+	\subsection{Enjeux du projet}
+	
+	Le développement de SalubritéCity répond à quatre
+	enjeux principaux :
+	
+	\begin{table}[h!]
+		\centering
+		\small
+		\renewcommand{\arraystretch}{1.2}
+		\begin{tabular}{|p{3cm}|p{11cm}|}
+			\hline
+			\textbf{Enjeu} & \textbf{Résultat recherché} \\ \hline
+			Citoyen & Faciliter la participation et le signalement. \\ \hline
+			Administratif & Améliorer la coordination des interventions. \\ \hline
+			Environnemental & Contribuer à l'amélioration de la salubrité. \\ \hline
+			Technologique & Exploiter la géolocalisation et la cartographie. \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	
+	% ==================================================
+	% PARTIE 3 : OBJECTIFS ET RESULTATS ATTENDUS
+	% ==================================================
+	
+	\section{Objectifs et résultats attendus}
+	
+	\subsection{Objectif général}
+	
+	L'objectif général de SalubritéCity est de concevoir
+	et de développer une plateforme numérique
+	collaborative permettant aux citoyens de signaler
+	les problèmes liés à la salubrité et aux infrastructures
+	urbaines, tout en offrant aux services communaux
+	des outils de centralisation, de géolocalisation,
+	de gestion et de suivi des interventions.
+	
+	La plateforme vise à améliorer la communication
+	entre les populations et les administrations
+	communales, à faciliter la prise de décision et à
+	renforcer le suivi des opérations de collecte des déchets.
+	
+	\subsection{Objectifs spécifiques}
+	
+	Pour atteindre cet objectif général, le projet poursuit
+	les objectifs spécifiques suivants :
+	
+	\begin{enumerate}
+		\item Mettre en place un système de signalement
+		permettant aux citoyens de transmettre des incidents
+		accompagnés de photographies et de coordonnées
+		géographiques.
+		
+		\item Développer un système de cartographie
+		interactive permettant de visualiser et de localiser
+		les problèmes signalés.
+		
+		\item Permettre la confirmation des signalements
+		par les autres citoyens afin de contribuer à leur
+		priorisation.
+		
+		\item Mettre à disposition des services communaux
+		un système de gestion des signalements,
+		d'affectation aux équipes et de suivi des interventions.
+		
+		\item Mettre en place un mécanisme de notification
+		informant les citoyens de l'évolution de leurs
+		signalements.
+		
+		\item Publier les calendriers de collecte des déchets
+		par quartier et permettre le suivi géographique
+		des camions de collecte.
+		
+		\item Développer un tableau de bord destiné aux
+		responsables communaux pour analyser la
+		répartition géographique des incidents et identifier
+		les zones prioritaires à l'aide de cartes de chaleur.
+	\end{enumerate}
+	
+	\subsection{Résultats attendus}
+	
+	À l'issue du développement, les résultats suivants
+	sont attendus :
+	
+	\begin{table}[h!]
+		\centering
+		\small
+		\renewcommand{\arraystretch}{1.15}
+		\begin{tabular}{|p{1.5cm}|p{12.5cm}|}
+			\hline
+			\textbf{ID} & \textbf{Résultat attendu} \\ \hline
+			R-001 & Une application mobile permettant de créer et consulter des signalements. \\ \hline
+			R-002 & Une carte interactive affichant les problèmes géolocalisés. \\ \hline
+			R-003 & Un mécanisme de confirmation des signalements. \\ \hline
+			R-004 & Une interface web de gestion destinée aux services communaux. \\ \hline
+			R-005 & Un workflow de traitement et de suivi des interventions. \\ \hline
+			R-006 & Un système de notifications relatives aux changements de statut. \\ \hline
+			R-007 & Un module de publication des calendriers de collecte. \\ \hline
+			R-008 & Un dispositif de suivi géographique des camions. \\ \hline
+			R-009 & Un tableau de bord communal intégrant des cartes de chaleur. \\ \hline
+			R-010 & Une API centralisée assurant la communication entre les applications. \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Indicateurs de réussite}
+	
+	Pour évaluer l'atteinte des objectifs, les indicateurs
+	suivants seront utilisés :
+	
+	\begin{itemize}
+		\item Fonctionnement correct de la création et de
+		la consultation des signalements.
+		
+		\item Précision de l'enregistrement et de l'affichage
+		des positions géographiques.
+		
+		\item Bonne synchronisation des données entre
+		les applications mobile et web.
+		
+		\item Respect du workflow d'affectation et de
+		traitement des incidents.
+		
+		\item Transmission correcte des notifications.
+		
+		\item Exactitude de la représentation cartographique
+		des données.
+		
+		\item Disponibilité des informations relatives aux
+		calendriers et au suivi des collectes.
+	\end{itemize}
+	
+	
+	% ==================================================
+	% PARTIE 4 : ACTEURS ET UTILISATEURS
+	% ==================================================
+	
+	\section{Acteurs et utilisateurs}
+	
+	\subsection{Identification des acteurs}
+	
+	SalubritéCity comporte quatre acteurs principaux.
+	Chacun intervient à un niveau différent dans le
+	processus de signalement, de gestion et de suivi
+	des problèmes urbains.
+	
+	\begin{table}[h!]
+		\centering
+		\small
+		\renewcommand{\arraystretch}{1.15}
+		\begin{tabular}{|p{3.2cm}|p{10.8cm}|}
+			\hline
+			\textbf{Acteur} & \textbf{Description} \\ \hline
+			Citoyen & Signale les problèmes urbains et consulte les informations publiques. \\ \hline
+			Agent communal & Reçoit et traite les signalements qui lui sont affectés sur le terrain. \\ \hline
+			Chef de service technique & Organise les interventions et supervise les équipes. \\ \hline
+			Maire & Consulte les indicateurs et supervise la gestion globale des problèmes urbains. \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Rôles et responsabilités}
+	
+	\begin{itemize}
+		\item \textbf{Citoyen :}
+		représente le principal utilisateur de l'application
+		mobile. Il crée des signalements avec une photographie
+		et une position GPS, choisit la catégorie du problème,
+		consulte la carte, confirme les signalements existants,
+		consulte les calendriers de collecte et reçoit des
+		notifications.
+		
+		\item \textbf{Agent communal :}
+		intervient sur le terrain pour traiter les problèmes
+		affectés. Il consulte ses interventions, accède aux
+		informations et à la localisation des incidents,
+		met à jour leur statut et transmet des preuves
+		de réalisation, notamment des photographies.
+		
+		\item \textbf{Chef de service technique :}
+		coordonne les opérations communales. Il vérifie
+		les signalements, priorise les interventions,
+		affecte les équipes, suit leur avancement,
+		supervise les opérations de collecte et consulte
+		les statistiques opérationnelles.
+		
+		\item \textbf{Maire :}
+		assure la supervision stratégique. Il consulte
+		le tableau de bord général, visualise la répartition
+		géographique des problèmes, analyse les cartes
+		de chaleur et suit les indicateurs de performance
+		des services communaux.
+	\end{itemize}
+	
+	\subsection{Matrice des permissions}
+	
+	La matrice suivante présente les principales
+	autorisations associées aux acteurs.
+	
+	\begin{table}[h!]
+		\centering
+		\scriptsize
+		\renewcommand{\arraystretch}{1.2}
+		\begin{tabular}{|p{5.4cm}|c|c|c|c|}
+			\hline
+			\textbf{Fonctionnalité} &
+			\textbf{Citoyen} &
+			\textbf{Agent} &
+			\textbf{Chef} &
+			\textbf{Maire} \\ \hline
+			
+			Créer un signalement & $\checkmark$ & $\checkmark^*$ & -- & -- \\ \hline
+			Consulter la carte & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\ \hline
+			Confirmer un signalement & $\checkmark$ & -- & -- & -- \\ \hline
+			Consulter les affectations & -- & $\checkmark$ & $\checkmark$ & -- \\ \hline
+			Affecter les interventions & -- & -- & $\checkmark$ & -- \\ \hline
+			Modifier le statut & -- & $\checkmark$ & $\checkmark$ & -- \\ \hline
+			Gérer les équipes & -- & -- & $\checkmark$ & -- \\ \hline
+			Consulter les statistiques & -- & -- & $\checkmark$ & $\checkmark$ \\ \hline
+			Consulter les cartes de chaleur & -- & -- & $\checkmark$ & $\checkmark$ \\ \hline
+			Gérer les calendriers de collecte & -- & -- & $\checkmark$ & -- \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\noindent
+	\textit{* L'agent peut créer un signalement professionnel
+		lors d'une intervention sur le terrain. Les permissions
+		définitives seront précisées dans les spécifications
+		fonctionnelles.}
+	
+	\subsection{Interactions entre les acteurs}
+	
+	Le fonctionnement collaboratif repose sur les
+	interactions suivantes :
+	
+	\begin{enumerate}
+		\item Le citoyen transmet un signalement à la plateforme.
+		\item Le chef de service technique consulte, vérifie
+		et affecte le signalement.
+		\item L'agent communal reçoit l'affectation et réalise
+		l'intervention.
+		\item L'agent met à jour le statut et transmet les
+		informations de réalisation.
+		\item Le chef de service supervise le traitement.
+		\item Le maire consulte les résultats et les indicateurs
+		de gestion.
+	\end{enumerate}
+	
+	
+	% ==================================================
+	% PARTIE 5 : PERIMETRE DU PROJET
+	% ==================================================
+	
+	\section{Périmètre du projet}
+	
+	\subsection{Périmètre fonctionnel}
+	
+	Le projet SalubritéCity couvre la conception et le
+	développement d'une plateforme numérique composée
+	d'une application mobile, d'une application web et
+	d'une API centralisée.
+	
+	La première version du système prendra en charge
+	les fonctionnalités suivantes :
+	
+	\begin{itemize}
+		\item \textbf{Signalement citoyen :} création de
+		signalements avec photographie, catégorie,
+		description et position GPS.
+		
+		\item \textbf{Cartographie :} affichage et localisation
+		des incidents sur une carte interactive.
+		
+		\item \textbf{Confirmation citoyenne :} possibilité
+		pour les habitants de confirmer les problèmes
+		déjà signalés.
+		
+		\item \textbf{Gestion des interventions :} consultation,
+		vérification, affectation et suivi des signalements
+		par les services communaux.
+		
+		\item \textbf{Suivi des opérations :} mise à jour
+		des statuts et transmission des preuves
+		d'intervention.
+		
+		\item \textbf{Notifications :} information des citoyens
+		sur l'évolution de leurs signalements.
+		
+		\item \textbf{Collecte des déchets :} publication
+		des calendriers de collecte par quartier.
+		
+		\item \textbf{Suivi des camions :} visualisation
+		de la position géographique des véhicules
+		de collecte.
+		
+		\item \textbf{Tableau de bord :} consultation
+		des statistiques et visualisation des zones
+		problématiques à travers des cartes de chaleur.
+	\end{itemize}
+	
+	\subsection{Éléments hors périmètre}
+	
+	Les fonctionnalités suivantes ne sont pas prévues
+	dans le périmètre initial :
+	
+	\begin{itemize}
+		\item Gestion automatisée des paiements et
+		des transactions financières.
+		\item Intelligence artificielle pour la reconnaissance
+		automatique des déchets ou des incidents.
+		\item Prédiction automatique des zones susceptibles
+		de connaître des problèmes de salubrité.
+		\item Gestion complète des ressources humaines
+		et de la comptabilité communale.
+		\item Intégration avec les systèmes informatiques
+		externes des administrations.
+		\item Optimisation automatique des itinéraires
+		des camions de collecte.
+	\end{itemize}
+	
+	Ces fonctionnalités pourront être étudiées dans
+	des versions ultérieures.
+	
+	\subsection{Livrables du projet}
+	
+	À la fin du projet, l'équipe devra fournir :
+	
+	\begin{enumerate}
+		\item Une application mobile Flutter fonctionnelle.
+		\item Une application web React fonctionnelle.
+		\item Une API Laravel documentée.
+		\item Une base de données structurée.
+		\item Un module de cartographie et de géolocalisation.
+		\item Un workflow de traitement des signalements.
+		\item Une documentation technique et un guide utilisateur.
+		\item Un rapport final de réalisation et une démonstration
+		du système.
+	\end{enumerate}
+	
+	
+	% ==================================================
+	% PARTIE 6 : SPECIFICATIONS FONCTIONNELLES
+	% ==================================================
+	
+	\section{Spécifications fonctionnelles}
+	
+	\subsection{Présentation des fonctionnalités}
+	
+	Les fonctionnalités de SalubritéCity sont réparties
+	en sept modules principaux :
+	
+	\begin{enumerate}
+		\item Gestion des utilisateurs et authentification.
+		\item Signalement et consultation des incidents.
+		\item Cartographie et géolocalisation.
+		\item Gestion et suivi des interventions.
+		\item Notifications et communication.
+		\item Gestion de la collecte des déchets.
+		\item Tableau de bord et statistiques.
+	\end{enumerate}
+	
+	\subsection{Description des exigences fonctionnelles}
+	
+	\small
+	\renewcommand{\arraystretch}{1.15}
+	
+	\noindent\textbf{A. Gestion des utilisateurs et authentification}
+	
+	\begin{center}
+		\begin{tabular}{|p{1.1cm}|p{3cm}|p{8cm}|p{1.7cm}|}
+			\hline
+			\textbf{ID} & \textbf{Fonctionnalité} &
+			\textbf{Description} & \textbf{Acteur} \\ \hline
+			F-001 & Inscription & Création d'un compte citoyen. & Citoyen \\ \hline
+			F-002 & Authentification & Connexion sécurisée à la plateforme. & Tous \\ \hline
+			F-003 & Gestion des rôles & Attribution des droits selon le profil. & Chef de service \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	\noindent\textbf{B. Signalement des incidents}
+	
+	\begin{center}
+		\begin{tabular}{|p{1.1cm}|p{3cm}|p{8cm}|p{1.7cm}|}
+			\hline
+			\textbf{ID} & \textbf{Fonctionnalité} &
+			\textbf{Description} & \textbf{Acteur} \\ \hline
+			F-004 & Créer un signalement & Enregistrement d'un incident avec photo, catégorie, description et position GPS. & Citoyen \\ \hline
+			F-005 & Consulter les signalements & Affichage des incidents disponibles. & Tous \\ \hline
+			F-006 & Confirmer un signalement & Confirmation d'un incident déjà déclaré. & Citoyen \\ \hline
+			F-007 & Filtrer les signalements & Recherche par catégorie, statut et localisation. & Tous \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	Les catégories initiales comprennent les dépôts
+	sauvages d'ordures, les caniveaux bouchés, les
+	nids-de-poule et les lampadaires défectueux.
+	
+	\noindent\textbf{C. Cartographie et géolocalisation}
+	
+	\begin{center}
+		\begin{tabular}{|p{1.1cm}|p{3cm}|p{8cm}|p{1.7cm}|}
+			\hline
+			\textbf{ID} & \textbf{Fonctionnalité} &
+			\textbf{Description} & \textbf{Acteur} \\ \hline
+			F-008 & Carte interactive & Affichage des signalements sous forme de marqueurs géographiques. & Tous \\ \hline
+			F-009 & Localisation GPS & Enregistrement de la position d'un incident. & Citoyen, Agent \\ \hline
+			F-010 & Visualisation géographique & Consultation des incidents selon leur emplacement. & Tous \\ \hline
+			F-011 & Carte de chaleur & Représentation des zones concentrant les incidents. & Chef, Maire \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	\noindent\textbf{D. Gestion et suivi des interventions}
+	
+	\begin{center}
+		\begin{tabular}{|p{1.1cm}|p{3cm}|p{8cm}|p{1.7cm}|}
+			\hline
+			\textbf{ID} & \textbf{Fonctionnalité} &
+			\textbf{Description} & \textbf{Acteur} \\ \hline
+			F-012 & Vérifier un signalement & Contrôle des informations transmises. & Chef \\ \hline
+			F-013 & Affecter une intervention & Attribution d'un incident à un agent ou une équipe. & Chef \\ \hline
+			F-014 & Mettre à jour le statut & Modification de l'état d'une intervention. & Agent, Chef \\ \hline
+			F-015 & Ajouter un compte rendu & Transmission des informations et preuves de réalisation. & Agent \\ \hline
+			F-016 & Consulter les interventions & Visualisation des interventions affectées et de leur avancement. & Agent, Chef \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	\noindent\textbf{E. Notifications et communication}
+	
+	\begin{center}
+		\begin{tabular}{|p{1.1cm}|p{3cm}|p{8cm}|p{1.7cm}|}
+			\hline
+			\textbf{ID} & \textbf{Fonctionnalité} &
+			\textbf{Description} & \textbf{Acteur} \\ \hline
+			F-017 & Notifications & Envoi d'une notification lors d'un changement important de statut. & Tous \\ \hline
+			F-018 & Suivi des signalements & Consultation de l'évolution des incidents déclarés. & Citoyen \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	\noindent\textbf{F. Gestion de la collecte des déchets}
+	
+	\begin{center}
+		\begin{tabular}{|p{1.1cm}|p{3cm}|p{8cm}|p{1.7cm}|}
+			\hline
+			\textbf{ID} & \textbf{Fonctionnalité} &
+			\textbf{Description} & \textbf{Acteur} \\ \hline
+			F-019 & Calendrier de collecte & Publication des horaires de collecte par quartier. & Chef \\ \hline
+			F-020 & Consultation du calendrier & Consultation des dates de collecte. & Citoyen \\ \hline
+			F-021 & Suivi des camions & Visualisation de la position géographique des véhicules de collecte. & Citoyen, Chef, Maire \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	\noindent\textbf{G. Tableau de bord et statistiques}
+	
+	\begin{center}
+		\begin{tabular}{|p{1.1cm}|p{3cm}|p{8cm}|p{1.7cm}|}
+			\hline
+			\textbf{ID} & \textbf{Fonctionnalité} &
+			\textbf{Description} & \textbf{Acteur} \\ \hline
+			F-022 & Tableau de bord & Présentation des indicateurs généraux. & Chef, Maire \\ \hline
+			F-023 & Statistiques & Consultation des signalements et interventions par catégorie et statut. & Chef, Maire \\ \hline
+			F-024 & Analyse cartographique & Visualisation des zones prioritaires à partir des données géographiques. & Chef, Maire \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	\normalsize
+	
+	\subsection{Workflow de traitement d'un signalement}
+	
+	Le traitement d'un signalement suit un processus
+	organisé depuis sa création jusqu'à sa résolution.
+	
+	\begin{enumerate}
+		\item \textbf{Création :} le citoyen transmet
+		un signalement.
+		
+		\item \textbf{Vérification :} le chef de service
+		examine le signalement.
+		
+		\item \textbf{Affectation :} une équipe reçoit
+		l'intervention.
+		
+		\item \textbf{Intervention :} l'agent réalise
+		les travaux et renseigne leur avancement.
+		
+		\item \textbf{Clôture :} le traitement est terminé
+		et le citoyen est informé.
+	\end{enumerate}
+	
+	Les statuts prévus sont : Nouveau, En vérification,
+	Affecté, En cours de traitement, Résolu et Rejeté.
+	
+	Le passage d'un statut à un autre doit respecter
+	les droits des acteurs et les règles de gestion
+	définies dans le système.
+	
+	\subsection{Priorisation des fonctionnalités}
+	
+	Les fonctionnalités sont classées selon leur
+	importance pour la réalisation du projet.
+	
+
+	
+	\section{Exigences non fonctionnelles}
+	
+	Les exigences non fonctionnelles définissent les critères de qualité,
+	de sécurité et de fonctionnement que la plateforme SalubritéCity
+	devra respecter.
+	
+	\subsection{Sécurité}
+	
+	\begin{itemize}
+		\item L'accès aux fonctionnalités doit dépendre du rôle de
+		l'utilisateur.
+		\item Les mots de passe doivent être stockés sous forme
+		de hachage sécurisé.
+		\item Les échanges entre les applications et l'API doivent
+		être protégés par HTTPS.
+		\item Les données personnelles et les informations de
+		localisation doivent être protégées contre les accès non autorisés.
+		\item Chaque opération sensible doit faire l'objet d'un contrôle
+		des autorisations.
+	\end{itemize}
+	
+	\subsection{Performance et disponibilité}
+	
+	\begin{itemize}
+		\item Les principales interfaces doivent s'afficher dans un
+		délai raisonnable.
+		\item L'API doit traiter efficacement les demandes simultanées.
+		\item Les cartes doivent afficher les signalements sans ralentissement
+		excessif.
+		\item Le système doit limiter les pertes de données en cas
+		d'interruption de connexion.
+	\end{itemize}
+	
+	\subsection{Ergonomie et facilité d'utilisation}
+	
+	\begin{itemize}
+		\item Les interfaces doivent être simples, intuitives et adaptées
+		aux différents profils d'utilisateurs.
+		\item La création d'un signalement doit nécessiter un nombre
+		limité d'étapes.
+		\item Les informations importantes doivent être clairement visibles.
+		\item Les interfaces mobiles doivent être adaptées aux écrans
+		de différentes dimensions.
+	\end{itemize}
+	
+	\subsection{Compatibilité}
+	
+	\begin{itemize}
+		\item L'application mobile doit fonctionner sur Android.
+		\item L'interface web doit être compatible avec les navigateurs
+		modernes tels que Chrome, Firefox et Edge.
+		\item L'API doit permettre la communication entre les applications
+		mobiles, web et la base de données.
+	\end{itemize}
+	
+	\subsection{Fiabilité et connectivité}
+	
+	\begin{itemize}
+		\item Les données saisies doivent être conservées correctement.
+		\item Le système doit gérer les interruptions temporaires
+		de connexion.
+		\item Les opérations effectuées hors connexion doivent pouvoir
+		être synchronisées après le rétablissement du réseau, lorsque
+		cette fonctionnalité est disponible.
+		\item Les erreurs doivent être signalées clairement à l'utilisateur.
+	\end{itemize}
+	
+	\subsection{Maintenance et évolutivité}
+	
+	\begin{itemize}
+		\item Le code doit être organisé en modules afin de faciliter
+		les corrections et les évolutions.
+		\item L'API doit être documentée.
+		\item La base de données doit faire l'objet de sauvegardes régulières.
+		\item L'architecture doit permettre l'ajout de nouvelles
+		fonctionnalités et de nouvelles communes.
+	\end{itemize}
+	
+	\subsection{Synthèse des exigences}
+	
+	\begin{table}[H]
+		\centering
+		\small
+		\renewcommand{\arraystretch}{1.2}
+		\begin{tabular}{|p{3.2cm}|p{10.2cm}|}
+			\hline
+			\textbf{Critère} & \textbf{Exigence principale} \\
+			\hline
+			Sécurité & Authentification, gestion des rôles et protection des données. \\
+			\hline
+			Performance & Temps de réponse raisonnable et affichage fluide des cartes. \\
+			\hline
+			Ergonomie & Interfaces simples et adaptées aux utilisateurs. \\
+			\hline
+			Compatibilité & Android et navigateurs web modernes. \\
+			\hline
+			Fiabilité & Conservation des données et gestion des interruptions réseau. \\
+			\hline
+			Maintenance & Code modulaire, documentation et sauvegardes régulières. \\
+			\hline
+		\end{tabular}
+		\caption{Synthèse des exigences non fonctionnelles}
+	\end{table}
+	
+	
+	\section{Règles métier et processus}
+	
+	Cette partie présente les règles qui encadrent le fonctionnement
+	de SalubritéCity ainsi que les étapes de traitement d'un
+	signalement, depuis sa création jusqu'à sa résolution.
+	
+	\subsection{Règles métier}
+	
+	Les règles métier définissent les conditions que les utilisateurs
+	et le système doivent respecter.
+	
+	\begin{enumerate}
+		\item[\textbf{RM-001}] Chaque signalement doit contenir une
+		catégorie et une description du problème.
+		
+		\item[\textbf{RM-002}] Chaque signalement doit être associé
+		à une position géographique obtenue par GPS ou sélectionnée
+		sur la carte.
+		
+		\item[\textbf{RM-003}] Un citoyen peut consulter les signalements
+		publiés et confirmer ceux qu'il constate également.
+		
+		\item[\textbf{RM-004}] Un citoyen ne peut confirmer qu'une
+		seule fois un même signalement.
+		
+		\item[\textbf{RM-005}] Chaque signalement doit posséder un
+		statut indiquant son état de traitement.
+		
+		\item[\textbf{RM-006}] Seul le chef des services techniques
+		ou un utilisateur autorisé peut affecter un signalement
+		à une équipe.
+		
+		\item[\textbf{RM-007}] Un agent ne peut modifier que les
+		interventions qui lui sont affectées.
+		
+		\item[\textbf{RM-008}] Chaque changement de statut doit être
+		enregistré avec sa date et l'utilisateur responsable.
+		
+		\item[\textbf{RM-009}] Un signalement résolu doit comporter
+		une justification ou une preuve de réalisation.
+		
+		\item[\textbf{RM-010}] Le citoyen doit être informé des
+		changements importants concernant ses signalements.
+		
+		\item[\textbf{RM-011}] Les calendriers de collecte doivent
+		être associés à un quartier ou à une zone géographique.
+		
+		\item[\textbf{RM-012}] Le suivi des camions doit utiliser
+		les positions GPS transmises par un dispositif ou un
+		téléphone installé dans chaque véhicule.
+	\end{enumerate}
+	
+	\subsection{Cycle de vie d'un signalement}
+	
+	Le traitement d'un signalement suit les étapes suivantes :
+	
+	\begin{enumerate}
+		\item \textbf{Création :} le citoyen décrit le problème,
+		choisit une catégorie, ajoute une photo et transmet sa position.
+		
+		\item \textbf{Vérification :} le chef des services techniques
+		examine les informations et vérifie la pertinence du signalement.
+		
+		\item \textbf{Affectation :} le chef attribue le signalement
+		à un agent ou à une équipe d'intervention.
+		
+		\item \textbf{Traitement :} l'agent réalise l'intervention
+		et met à jour son état d'avancement.
+		
+		\item \textbf{Résolution :} l'agent fournit une preuve de
+		réalisation. Le chef valide la clôture du signalement.
+	\end{enumerate}
+	
+	Un signalement non pertinent ou en double peut être rejeté
+	par un utilisateur autorisé, avec une justification.
+	
+	\subsection{Statuts d'un signalement}
+	
+	\begin{table}[H]
+		\centering
+		\small
+		\renewcommand{\arraystretch}{1.15}
+		\begin{tabular}{|p{4cm}|p{9.4cm}|}
+			\hline
+			\textbf{Statut} & \textbf{Description} \\
+			\hline
+			Nouveau & Le signalement vient d'être créé. \\
+			\hline
+			En vérification & Les services techniques examinent le signalement. \\
+			\hline
+			Affecté & Un agent ou une équipe a été désigné. \\
+			\hline
+			En cours de traitement & L'intervention a commencé. \\
+			\hline
+			Résolu & Le problème a été traité et clôturé. \\
+			\hline
+			Rejeté & Le signalement a été refusé avec justification. \\
+			\hline
+		\end{tabular}
+		\caption{États possibles d'un signalement}
+	\end{table}
+	
+	\subsection{Processus général de traitement}
+	
+	Le processus repose sur une collaboration entre les citoyens
+	et les services communaux :
+	
+	\begin{enumerate}
+		\item Le citoyen transmet le signalement.
+		\item Le système enregistre les informations et affiche
+		le signalement sur la carte.
+		\item Le chef vérifie le signalement et décide de son
+		affectation ou de son rejet.
+		\item L'agent réalise l'intervention et actualise son état.
+		\item Le chef vérifie le résultat et clôture le signalement.
+		\item Le système informe le citoyen de l'évolution du traitement.
+	\end{enumerate}
+	
+	Tous les changements de statut doivent être conservés dans
+	un historique afin de garantir la traçabilité des opérations.
+	
+	
+	\section{Architecture et conception}
+	
+	Cette partie présente l'organisation technique de SalubritéCity,
+	les différents composants logiciels et leurs interactions.
+	L'objectif est de définir une architecture modulaire permettant
+	aux applications mobiles et web de communiquer avec un serveur central.
+	
+	\subsection{Architecture générale}
+	
+	SalubritéCity adoptera une architecture client-serveur organisée
+	en trois couches principales :
+	
+	\begin{enumerate}
+		\item \textbf{Couche présentation :} regroupe les interfaces
+		utilisées par les citoyens, les agents municipaux et les responsables.
+		
+		\item \textbf{Couche applicative :} contient l'API Laravel,
+		qui traite les demandes, applique les règles métier et contrôle
+		les accès.
+		
+		\item \textbf{Couche données :} assure le stockage des utilisateurs,
+		des signalements, des interventions, des quartiers et des
+		opérations de collecte.
+	\end{enumerate}
+	
+	Les applications mobiles et web communiqueront avec le serveur
+	à travers une API REST.
+	
+	\subsection{Schéma de l'architecture}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[
+			node distance=0.65cm,
+			bloc/.style={
+				rectangle,
+				rounded corners,
+				draw=black,
+				align=center,
+				minimum width=4.2cm,
+				minimum height=0.85cm,
+				font=\small
+			},
+			fleche/.style={
+				-{Stealth},
+				thick
+			}
+			]
+			
+			\node[bloc] (mobile) {
+				\textbf{Application mobile}\\
+				Flutter
+			};
+			
+			\node[bloc, right=1.2cm of mobile] (web) {
+				\textbf{Application web}\\
+				React
+			};
+			
+			\node[bloc, below=1cm of mobile, xshift=2.7cm] (api) {
+				\textbf{API REST}\\
+				Laravel
+			};
+			
+			\node[bloc, below=0.8cm of api] (modules) {
+				\textbf{Modules métier}\\
+				Utilisateurs, signalements, interventions,\\
+				notifications et collecte
+			};
+			
+			\node[bloc, below=0.8cm of modules] (db) {
+				\textbf{Base de données}\\
+				MYSQL
+			};
+			
+			\node[bloc, right=1.2cm of db] (storage) {
+				\textbf{Stockage des fichiers}\\
+				Photos et preuves
+			};
+			
+			\draw[fleche] (mobile) -- node[left,font=\scriptsize] {HTTP / JSON} (api);
+			\draw[fleche] (web) -- node[right,font=\scriptsize] {HTTP / JSON} (api);
+			\draw[fleche] (api) -- (modules);
+			\draw[fleche] (modules) -- (db);
+			\draw[fleche] (modules.east) -| (storage.north);
+			
+		\end{tikzpicture}
+		\caption{Architecture générale de SalubritéCity}
+	\end{figure}
+	
+	\subsection{Composants logiciels}
+	
+	\begin{table}[H]
+		\centering
+		\small
+		\renewcommand{\arraystretch}{1.2}
+		\begin{tabular}{|p{3cm}|p{2.8cm}|p{7cm}|}
+			\hline
+			\textbf{Composant} & \textbf{Technologie} & \textbf{Responsabilité} \\
+			\hline
+			Application mobile & Flutter & Signalements, GPS, photos, notifications et suivi. \\
+			\hline
+			Application web & React & Administration, gestion des signalements, équipes et tableaux de bord. \\
+			\hline
+			Serveur applicatif & Laravel & API REST, authentification, règles métier et traitement des demandes. \\
+			\hline
+			Base de données & MYSQL & Stockage des données de la plateforme. \\
+			\hline
+			Cartographie & OpenStreetMap et bibliothèque cartographique & Affichage des cartes, marqueurs et zones géographiques. \\
+			\hline
+			Stockage des fichiers & Stockage serveur & Conservation des photos et preuves d'intervention. \\
+			\hline
+		\end{tabular}
+		\caption{Composants techniques de la plateforme}
+	\end{table}
+	
+	\subsection{Organisation des modules}
+	
+	Le serveur Laravel sera organisé en modules fonctionnels :
+	
+	\begin{itemize}
+		\item Authentification et gestion des utilisateurs.
+		\item Gestion des signalements.
+		\item Géolocalisation et cartographie.
+		\item Gestion des interventions et des équipes.
+		\item Notifications.
+		\item Gestion des calendriers de collecte.
+		\item Suivi GPS des camions.
+		\item Statistiques et tableaux de bord.
+	\end{itemize}
+	
+	Cette organisation facilitera la maintenance et l'évolution
+	de la plateforme.
+	
+	\subsection{Échanges entre les composants}
+	
+	Le fonctionnement général repose sur les échanges suivants :
+	
+	\begin{enumerate}
+		\item L'utilisateur effectue une action depuis l'application
+		mobile ou web.
+		\item L'application transmet une requête HTTP à l'API Laravel.
+		\item L'API vérifie l'identité de l'utilisateur et ses autorisations.
+		\item Le serveur applique les règles métier et communique
+		avec MYSQL.
+		\item L'API retourne une réponse à l'application.
+		\item L'application actualise les informations affichées.
+	\end{enumerate}
+	
+	Les photos sont transmises au serveur et conservées dans un espace
+	de stockage dédié. Les coordonnées GPS sont enregistrées avec
+	les signalements ou les positions des véhicules.
+	
+	\subsection{Conception des données}
+	
+	La base de données devra notamment contenir les entités suivantes :
+	
+	\begin{itemize}
+		\item \textbf{Utilisateur :} informations du compte et rôle.
+		\item \textbf{Signalement :} catégorie, description, photo,
+		coordonnées et statut.
+		\item \textbf{Confirmation :} association entre un citoyen
+		et un signalement confirmé.
+		\item \textbf{Intervention :} signalement concerné, agent ou
+		équipe affectée, dates et état.
+		\item \textbf{Équipe :} informations des équipes municipales.
+		\item \textbf{Quartier :} nom et délimitation géographique.
+		\item \textbf{Calendrier de collecte :} quartier, date et
+		horaires prévus.
+		\item \textbf{Véhicule :} informations du camion de collecte.
+		\item \textbf{Position GPS :} coordonnées et date de transmission
+		du véhicule.
+		\item \textbf{Notification :} destinataire, contenu et état
+		de lecture.
+	\end{itemize}
+	
+	Les relations entre ces entités devront garantir la cohérence
+	des données et éviter les duplications inutiles.
+	
+	\subsection{Sécurité et communication}
+	
+	Les échanges entre les applications et le serveur devront respecter
+	les principes suivants :
+	
+	\begin{itemize}
+		\item Utilisation du protocole HTTPS pour protéger les communications.
+		\item Authentification des utilisateurs avant l'accès aux
+		fonctionnalités privées.
+		\item Vérification des rôles et des permissions au niveau de l'API.
+		\item Validation des données reçues avant leur enregistrement.
+		\item Protection des fichiers envoyés par les utilisateurs.
+		\item Conservation d'un historique des opérations sensibles.
+	\end{itemize}
+	
+	\subsection{Synchronisation et fonctionnement réseau}
+	
+	L'application mobile devra prévoir un mécanisme de gestion des
+	interruptions réseau.
+	
+	Lorsqu'un agent effectue une opération sans connexion, les données
+	pourront être conservées temporairement sur son appareil. Une file
+	d'attente permettra de transmettre les opérations au serveur lorsque
+	la connexion sera rétablie.
+	
+	Le système devra vérifier les opérations déjà synchronisées afin
+	d'éviter les doublons.
+	
+	
+	\section{Technologies et contraintes}
+	
+	Cette partie présente les technologies retenues pour développer
+	SalubritéCity ainsi que les contraintes techniques liées à leur
+	utilisation. L'objectif est de choisir des outils adaptés aux
+	différentes plateformes et de faciliter la maintenance du système.
+	
+	\subsection{Technologies retenues}
+	
+	Le développement de SalubritéCity reposera sur les technologies
+	suivantes :
+	
+	\begin{table}[H]
+		\centering
+		\small
+		\renewcommand{\arraystretch}{1.2}
+		\begin{tabular}{|p{3.5cm}|p{9.8cm}|}
+			\hline
+			\textbf{Technologie} & \textbf{Utilisation} \\
+			\hline
+			Flutter & Développement de l'application mobile Android. \\
+			\hline
+			React & Développement de l'interface web de gestion. \\
+			\hline
+			Laravel & Développement du serveur et de l'API REST. \\
+			\hline
+			PHP & Langage utilisé par Laravel. \\
+			\hline
+			MYSQL & Gestion et stockage des données. \\
+			\hline
+			PostGIS & Gestion des coordonnées et données géographiques. \\
+			\hline
+			OpenStreetMap & Fourniture des données cartographiques. \\
+			\hline
+			Git et GitHub & Gestion du code source et collaboration. \\
+			\hline
+			Figma & Conception des interfaces utilisateur. \\
+			\hline
+		\end{tabular}
+		\caption{Technologies utilisées dans le projet}
+	\end{table}
+	
+	\subsection{Justification des choix technologiques}
+	
+	\begin{itemize}
+		\item \textbf{Flutter :} permet de développer une application
+		mobile adaptée aux besoins des citoyens et des agents municipaux.
+		Il prend en charge la géolocalisation, l'appareil photo et
+		les notifications.
+		
+		\item \textbf{React :} permet de construire une interface web
+		organisée en composants réutilisables, destinée aux responsables
+		et aux services municipaux.
+		
+		\item \textbf{Laravel :} fournit un environnement structuré
+		pour développer l'API REST, gérer l'authentification, appliquer
+		les règles métier et communiquer avec la base de données.
+		
+		
+		\item \textbf{OpenStreetMap :} fournit les données cartographiques
+		nécessaires à l'affichage des quartiers, des signalements
+		et des véhicules.
+		
+		\item \textbf{Git et GitHub :} facilitent le travail en équipe,
+		le suivi des tâches, la gestion des versions et la documentation.
+		
+		\item \textbf{Figma :} facilite la conception et la validation
+		des interfaces avant leur développement.
+	\end{itemize}
+	
+	\subsection{Contraintes techniques}
+	
+	Le développement devra prendre en compte les contraintes suivantes :
+	
+	\begin{itemize}
+		\item \textbf{Connectivité :} le système devra gérer les
+		interruptions de connexion et prévoir une synchronisation
+		différée des données.
+		
+		\item \textbf{Géolocalisation :} la précision des coordonnées
+		dépendra du GPS et des conditions environnementales.
+		
+		\item \textbf{Cartographie :} l'affichage des cartes dépendra
+		de la disponibilité des données cartographiques et du mécanisme
+		de stockage local retenu.
+		
+		\item \textbf{Compatibilité :} l'application mobile devra
+		fonctionner sur Android et l'interface web sur les navigateurs
+		modernes.
+		
+		\item \textbf{Stockage :} les photos et les preuves d'intervention
+		nécessiteront un espace de stockage adapté.
+		
+		\item \textbf{Sécurité :} les données personnelles et les comptes
+		devront être protégés.
+		
+		\item \textbf{Ressources matérielles :} les applications devront
+		fonctionner sur des appareils disposant de ressources limitées.
+	\end{itemize}
+	
+	\subsection{Contraintes organisationnelles}
+	
+	Le projet sera développé dans un cadre académique. L'équipe devra
+	donc tenir compte des éléments suivants :
+	
+	\begin{itemize}
+		\item Du temps disponible pour la conception, le développement
+		et les tests.
+		\item De la répartition des tâches entre les membres de l'équipe.
+		\item Des ressources matérielles et financières disponibles.
+		\item De la nécessité de documenter les choix techniques et
+		les fonctionnalités.
+		\item De la validation progressive des fonctionnalités prioritaires.
+	\end{itemize}
+	
+	\end{document}
