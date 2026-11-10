@@ -2,7 +2,7 @@
 
 use App\Http\Middleware\AccountStatusMiddleware;
 use App\Http\Middleware\AuthenticationMiddleware;
-
+use App\Http\Middleware\AuthorizationMiddleware;
 use App\Http\Middleware\EmailVerifiedMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -21,7 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth.token' => AuthenticationMiddleware::class,
             'account.active' => AccountStatusMiddleware::class,
             'email.verified' => EmailVerifiedMiddleware::class,
-
+            'permission' => AuthorizationMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
