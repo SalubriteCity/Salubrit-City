@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\Auth\GoogleLoginRequest;
+use App\Http\Requests\Auth\LoginRequest;
 
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResendOtpRequest;
@@ -62,6 +63,12 @@ class AuthController extends Controller
         return $this->tokenResponse($request, $auth->loginWithGoogle($request->validated('id_token')));
     }
 
+    public function login(LoginRequest $request, AuthService $auth): JsonResponse
+    {
+        $data = $request->validated();
+
+        return $this->tokenResponse($request, $auth->login($data['email'], $data['password']));
+    }
 
     /**
      * @param  array{user: User, tokens: array<string, string|int>}  $result
