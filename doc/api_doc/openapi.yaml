@@ -1,0 +1,201 @@
+openapi: 3.1.0
+info:
+  title: Salubrit-City Authentication API
+  version: 1.0.0
+  description: Versioned authentication and profile endpoints.
+servers:
+  - url: /api/v1
+paths:
+  /auth/register:
+    post:
+      summary: Register with email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [full_name, email, password, password_confirmation]
+              properties:
+                full_name: { type: string, maxLength: 255 }
+                email: { type: string, format: email }
+                phone: { type: [string, "null"], maxLength: 30 }
+                password: { type: string, minLength: 8 }
+                password_confirmation: { type: string }
+      responses:
+        "201":
+          description: Account created and verification code sent
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "503":
+          description: A non-log email transport is not configured
+  /auth/verify-email:
+    post:
+      summary: Verify email with a one-time code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, otp]
+              properties:
+                email: { type: string, format: email }
+                otp: { type: string, pattern: "^[0-9]{6}$" }
+      responses:
+        "200":
+          description: Email verified
+        "422":
+          $ref: "#/components/responses/ValidationError"
+  /auth/resend-otp:
+    post:
+      summary: Request another email verification code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email: { type: string, format: email }
+      responses:
+        "202":
+          description: Generic response that does not disclose account existence
+        "503":
+          description: A non-log email transport is not configured
+  /auth/google:
+    post:
+      summary: Authenticate using a Google ID token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id_token]
+              properties:
+                id_token: { type: string }
+      responses:
+        "200":
+          description: Google identity verified and application session issued
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "503":
+          description: Google Client ID is not configured or Google is unavailable
+  /auth/login:
+    post:
+      summary: Authenticate using email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string }
+      responses:
+        "200":
+          description: Application access and refresh tokens issued
+        "401":
+          description: Invalid credentials
+        "403":
+          description: Account inactive or email not verified
+  /auth/refresh:
+    post:
+      summary: Rotate an application session's access and refresh tokens
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [refresh_token]
+              properties:
+                refresh_token: { type: string, minLength: 64, maxLength: 64 }
+      responses:
+        "200":
+          description: Session tokens rotated
+        "401":
+          description: Refresh token invalid, expired, or revoked
+  /auth/logout:
+    post:
+      summary: Revoke the current application session
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Session revoked
+        "401":
+          description: Missing or invalid access token
+  /auth/me:
+    get:
+      summary: Get the authenticated user's profile
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: User profile
+        "401":
+          description: Missing or invalid access token
+        "403":
+          description: Account inactive or profile permission missing
+  /auth/complete-profile:
+    put:
+      summary: Complete or update the authenticated user's profile
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [full_name]
+              properties:
+                full_name: { type: string, maxLength: 255 }
+                phone: { type: [string, "null"], maxLength: 30 }
+                avatar_url: { type: [string, "null"], format: uri }
+          
+      responses:
+        "200":
+          description: Profile updated
+        "401":
+          description: Missing or invalid access token
+        "403":
+          description: Email is unverified, account inactive, or permission missing
+        "422":
+          $ref: "#/components/responses/ValidationError"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Opaque token
+  responses:
+    ValidationError:
+      description: Invalid request data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message: { type: string }
+              errors:
+                type: object
+                additionalProperties:
+                  type: array
+                  items: { type: string }
+x-configuration:
+  required:
+    - AUTH_ACCESS_TOKEN_TTL
+    - AUTH_REFRESH_TOKEN_TTL
+    - AUTH_EMAIL_OTP_TTL
+    - GOOGLE_CLIENT_ID
+    - MAIL_MAILER
+    - MAIL_FROM_ADDRESS
+  notes:
+    - Configure a real email transport for deployment; the Laravel skeleton defaults to the log mailer.
+    - Google authentication requires the audience/client ID used by the mobile or web client.
