@@ -3,6 +3,7 @@
 use App\Http\Middleware\AccountStatusMiddleware;
 use App\Http\Middleware\AuthenticationMiddleware;
 
+use App\Http\Middleware\EmailVerifiedMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -19,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'auth.token' => AuthenticationMiddleware::class,
             'account.active' => AccountStatusMiddleware::class,
+            'email.verified' => EmailVerifiedMiddleware::class,
 
         ]);
     })
