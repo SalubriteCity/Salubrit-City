@@ -107,7 +107,24 @@ class AuthController extends Controller
         ]);
     }
 
+    public function completeProfile(CompleteProfileRequest $request): JsonResponse
+    {
+        $user = $request->user();
 
+        abort_unless($user instanceof User, 401, 'Unauthenticated.');
+
+        $data = $request->validated();
+        $user->update([
+            'name' => $data['full_name'],
+            'phone' => $data['phone'] ?? null,
+            'avatar_url' => $data['avatar_url'] ?? null,
+        ]);
+
+        return response()->json([
+            'message' => 'Profile updated.',
+            'data' => ['user' => (new AuthUserResource($user->load('roles')))->resolve($request)],
+        ]);
+    }
 
     /**
      * @param  array{user: User, tokens: array<string, string|int>}  $result
