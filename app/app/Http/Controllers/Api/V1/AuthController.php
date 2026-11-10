@@ -4,18 +4,20 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\Auth\GoogleLoginRequest;
+
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResendOtpRequest;
 use App\Http\Requests\Auth\VerifyEmailRequest;
 use App\Http\Resources\AuthUserResource;
 
 use App\Models\User;
-
+use App\Services\AuthService;
 use App\Services\EmailVerificationService;
 use App\Services\RegistrationService;
 
 use Illuminate\Http\JsonResponse;
-
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -55,5 +57,23 @@ class AuthController extends Controller
         return response()->json(['message' => 'If the account can be verified, a code has been sent.'], 202);
     }
 
+    public function google(GoogleLoginRequest $request, AuthService $auth): JsonResponse
+    {
+        return $this->tokenResponse($request, $auth->loginWithGoogle($request->validated('id_token')));
+    }
 
+
+    /**
+     * @param  array{user: User, tokens: array<string, string|int>}  $result
+     */
+    private function tokenResponse(Request $request, array $result): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Authenticated.',
+            'data' => [
+                'user' => (new AuthUserResource($result['user']->load('roles')))->resolve($request),
+                'tokens' => $result['tokens'],
+            ],
+        ]);
+    }
 }
