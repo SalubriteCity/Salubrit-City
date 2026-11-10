@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\Auth\GoogleLoginRequest;
 use App\Http\Requests\Auth\LoginRequest;
-
+use App\Http\Requests\Auth\RefreshTokenRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResendOtpRequest;
 use App\Http\Requests\Auth\VerifyEmailRequest;
@@ -16,7 +16,7 @@ use App\Models\User;
 use App\Services\AuthService;
 use App\Services\EmailVerificationService;
 use App\Services\RegistrationService;
-
+use App\Services\TokenService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -69,6 +69,20 @@ class AuthController extends Controller
 
         return $this->tokenResponse($request, $auth->login($data['email'], $data['password']));
     }
+
+    public function refresh(RefreshTokenRequest $request, TokenService $tokens): JsonResponse
+    {
+        $result = $tokens->refresh($request->validated('refresh_token'));
+
+        return response()->json([
+            'message' => 'Session renewed.',
+            'data' => [
+                'user' => (new AuthUserResource($result['user']->load('roles')))->resolve($request),
+                'tokens' => $result['tokens'],
+            ],
+        ]);
+    }
+
 
     /**
      * @param  array{user: User, tokens: array<string, string|int>}  $result
