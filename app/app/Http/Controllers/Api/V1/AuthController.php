@@ -11,7 +11,7 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResendOtpRequest;
 use App\Http\Requests\Auth\VerifyEmailRequest;
 use App\Http\Resources\AuthUserResource;
-
+use App\Models\AuthSession;
 use App\Models\User;
 use App\Services\AuthService;
 use App\Services\EmailVerificationService;
@@ -82,6 +82,20 @@ class AuthController extends Controller
             ],
         ]);
     }
+
+    public function logout(Request $request, TokenService $tokens): JsonResponse
+    {
+        $session = $request->attributes->get('auth_session');
+
+        if (! $session instanceof AuthSession) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
+
+        $tokens->revoke($session);
+
+        return response()->json(['message' => 'Session revoked.']);
+    }
+
 
 
     /**
