@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\Auth\CompleteProfileRequest;
 use App\Http\Requests\Auth\GoogleLoginRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RefreshTokenRequest;
@@ -94,6 +94,17 @@ class AuthController extends Controller
         $tokens->revoke($session);
 
         return response()->json(['message' => 'Session revoked.']);
+    }
+
+    public function me(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+        abort_unless($user instanceof User, 401, 'Unauthenticated.');
+
+        return response()->json([
+            'data' => ['user' => (new AuthUserResource($user->load('roles')))->resolve($request)],
+        ]);
     }
 
 
