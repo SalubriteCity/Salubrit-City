@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Middleware\AccountStatusMiddleware;
 use App\Http\Middleware\AuthenticationMiddleware;
 
 use Illuminate\Foundation\Application;
@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'auth.token' => AuthenticationMiddleware::class,
+            'account.active' => AccountStatusMiddleware::class,
 
         ]);
     })
