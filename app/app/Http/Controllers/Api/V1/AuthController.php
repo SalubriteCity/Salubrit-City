@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 
-
 use App\Http\Requests\Auth\RegisterRequest;
-
+use App\Http\Requests\Auth\ResendOtpRequest;
 use App\Http\Requests\Auth\VerifyEmailRequest;
 use App\Http\Resources\AuthUserResource;
+
+use App\Models\User;
 
 use App\Services\EmailVerificationService;
 use App\Services\RegistrationService;
@@ -40,5 +41,19 @@ class AuthController extends Controller
             'data' => ['user' => (new AuthUserResource($user->load('roles')))->resolve($request)],
         ]);
     }
+
+    public function resendOtp(
+        ResendOtpRequest $request,
+        EmailVerificationService $verification,
+    ): JsonResponse {
+        $user = User::query()->where('email', $request->validated('email'))->first();
+
+        if ($user !== null && $user->status === 'active' && ! $user->hasVerifiedEmail()) {
+            $verification->sendVerificationCode($user);
+        }
+
+        return response()->json(['message' => 'If the account can be verified, a code has been sent.'], 202);
+    }
+
 
 }
