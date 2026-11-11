@@ -36,12 +36,18 @@ class EmailVerificationService
         Notification::route('mail', $user->email)->notify(new VerifyEmailOtp($code));
     }
 
-    public function assertDeliveryAvailable(): void
+    private function assertDeliveryAvailable(): void
     {
-        if (config('mail.default') === 'log') {
+        $mailer = config('mail.default');
+
+        if (app()->environment(['local', 'testing'])) {
+            return;
+        }
+
+        if (in_array($mailer, ['log', 'array'], true)) {
             throw new ServiceUnavailableHttpException(
                 null,
-                'Email delivery is not configured. Configure a non-log mail transport.',
+                'Email delivery is not configured.'
             );
         }
     }

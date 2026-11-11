@@ -16,7 +16,7 @@ class RegistrationService
      */
     public function register(array $data): User
     {
-        $this->emailVerification->assertDeliveryAvailable();
+        
 
         $user = DB::transaction(function () use ($data): User {
             $user = User::create([
