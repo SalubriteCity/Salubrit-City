@@ -1,8 +1,11 @@
 <?php
 
+use Carbon\Traits\Timestamp;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+
+use function Illuminate\Support\now;
 
 return new class extends Migration
 {
@@ -26,8 +29,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('access_token_hash', 64)->unique();
             $table->string('refresh_token_hash', 64)->unique();
-            $table->timestamp('token_expires_at')->index();
-            $table->timestamp('refresh_expires_at')->index();
+            $table->timestamp('token_expires_at')->index()->default(now());
+            $table->timestamp('refresh_expires_at')->index()->default(now());
             $table->timestamp('revoked_at')->nullable();
             $table->timestamp('last_used_at')->nullable();
             $table->timestamps();
